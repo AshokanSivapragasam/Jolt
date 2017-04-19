@@ -88,6 +88,9 @@
           "xsl:choose": {
             "$ref": "#/definitions/xsl%3Achoose"
           },
+          "xsl:call-template": {
+            "$ref": "#/definitions/xsl%3Acall-template"
+          },
           "xsl:element": {
             "$ref": "#/definitions/xsl%3Aelement"
           }
@@ -229,6 +232,9 @@
         },
         "xsl:choose": {
           "$ref": "#/definitions/xsl%3Achoose"
+        },
+        "xsl:call-template": {
+          "$ref": "#/definitions/xsl%3Acall-template"
         },
         "xsl:element": {
           "$ref": "#/definitions/xsl%3Aelement"

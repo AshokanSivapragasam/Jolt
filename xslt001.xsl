@@ -3,7 +3,10 @@
     xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl"
 >
     <xsl:output method="xml" indent="yes"/>
-  
+
+  <xsl:template name="a">
+    <html></html>
+  </xsl:template>
     <xsl:template match="/">
       
       <xsl:variable name="sas" select="as">
@@ -11,6 +14,7 @@
       
       </xsl:variable>
       <html>
+        <xsl:attribute name="qw"><xsl:copy></xsl:copy></xsl:attribute>
         <xsl:variable name="amy" select="./jackson"></xsl:variable>
         <xsl:element name="a">
           <xsl:attribute name="wed">
