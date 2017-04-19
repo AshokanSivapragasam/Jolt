@@ -4,8 +4,12 @@
 >
     <xsl:output method="xml" indent="yes"/>
   
-    
     <xsl:template match="/">
+      
+      <xsl:variable name="sas" select="as">
+        
+      
+      </xsl:variable>
       <html>
         <xsl:variable name="amy" select="./jackson"></xsl:variable>
         <xsl:element name="a">

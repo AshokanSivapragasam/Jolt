@@ -33,6 +33,12 @@
               },
               "xsl:element": {
                 "$ref": "#/definitions/xsl%3Aelement"
+              },
+              "xsl:param": {
+                "$ref": "#/definitions/xsl%3Aparam"
+              },
+              "xsl:call-template": {
+                "$ref": "#/definitions/xsl%3Acall-template"
               }
             },
             "type": "object"
@@ -56,6 +62,14 @@
       },
       "type": "object"
     },
+    "xsl:value-of": {
+      "properties": {
+        "@select": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "xsl:element": {
       "items": {
         "additionalProperties": {
@@ -66,12 +80,7 @@
             "type": "string"
           },
           "xsl:value-of": {
-            "properties": {
-              "@select": {
-                "type": "string"
-              }
-            },
-            "type": "object"
+            "$ref": "#/definitions/xsl%3Avalue-of"
           },
           "xsl:attribute": {
             "$ref": "#/definitions/xsl%3Aattribute"
@@ -94,12 +103,7 @@
             "type": "string"
           },
           "xsl:value-of": {
-            "properties": {
-              "@select": {
-                "type": "string"
-              }
-            },
-            "type": "object"
+            "$ref": "#/definitions/xsl%3Avalue-of"
           }
         },
         "type": "object"
@@ -111,8 +115,12 @@
         "properties": {
           "xsl:when": {
             "items": {
+              "additionalProperties": {
+                "$ref": "#/definitions/shorthand_element_name"
+              },
               "properties": {
                 "@test": { "type": "string" },
+
                 "xsl:element": {
                   "$ref": "#/definitions/xsl%3Aelement"
                 }
@@ -131,7 +139,7 @@
               },
               "type": "object"
             },
-            "type": "array"
+            "type": "object"
           }
         },
         "type": "object"
@@ -140,11 +148,65 @@
     },
     "xsl:variable": {
       "items": {
+        "additionalProperties": {
+          "$ref": "#/definitions/shorthand_element_name"
+        },
         "properties": {
           "@name": { "type": "string" },
           "@select": { "type": "string" },
+          "xsl:value-of": {
+            "$ref": "#/definitions/xsl%3Avalue-of"
+          },
+          "xsl:attribute": {
+            "$ref": "#/definitions/xsl%3Aattribute"
+          },
+          "xsl:choose": {
+            "$ref": "#/definitions/xsl%3Achoose"
+          },
           "xsl:element": {
             "$ref": "#/definitions/xsl%3Aelement"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "xsl:param": {
+      "items": {
+        "properties": {
+          "@name": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "xsl:with-param": {
+      "items": {
+        "properties": {
+          "@name": {
+            "type": "string"
+          },
+          "@select": {
+            "type": "string"
+          },
+          "xsl:value-of": {
+            "$ref": "#/definitions/xsl%3Avalue-of"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "xsl:call-template": {
+      "items": {
+        "properties": {
+          "@name": {
+            "type": "string"
+          },
+          "xsl:with-param": {
+            "$ref":  "#/definitions/xsl%3Awith-param"
           }
         },
         "type": "object"
@@ -157,12 +219,7 @@
       },
       "properties": {
         "xsl:value-of": {
-          "properties": {
-            "@select": {
-              "type": "string"
-            }
-          },
-          "type": "object"
+          "$ref": "#/definitions/xsl%3Avalue-of"
         },
         "@any_custom_attribute_like_class_margin_padding_etc": {
           "type": "string"
