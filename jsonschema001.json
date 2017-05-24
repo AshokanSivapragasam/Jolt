@@ -3,6 +3,44 @@
   "properties": {
     "xsl:stylesheet": {
       "properties": {
+        "@version": {
+          "type": "string",
+          "enum": [ "1.0" ]
+        },
+        "@xmlns:xsl": {
+          "type": "string",
+          "enum": [ "http://www.w3.org/1999/XSL/Transform" ]
+        },
+        "@xmlns:msxsl": {
+          "type": "string",
+          "enum": [ "urn:schemas-microsoft-com:xslt" ]
+        },
+        "@xmlns:mslib": {
+          "type": "string",
+          "enum": [ "http://microsoft.com/mip/libraries" ]
+        },
+        "@xmlns:fo": {
+          "type": "string",
+          "enum": [ "http://www.w3.org/1999/XSL/Format" ]
+        },
+        "@exclude-result-prefixes": {
+          "type": "string",
+          "enum": [ "msxsl mslib fo" ]
+        },
+        "xsl:output": {
+          "properties": {
+            "@method": {
+              "type": "string",
+              "enum": [ "xml", "html", "text" ]
+            },
+            "@indent": {
+              "type": "string",
+              "enum": [ "yes", "no" ]
+            }
+          },
+          "description": "Defines a reusable template for generating the desired output for nodes of a particular type and context.",
+          "type": "object"
+        },
         "xsl:template": {
           "items": {
             "additionalProperties": {
@@ -39,6 +77,9 @@
               },
               "xsl:call-template": {
                 "$ref": "#/definitions/xsl%3Acall-template"
+              },
+              "xsl:for-each": {
+                "$ref": "#/definitions/xsl%3Afor-each"
               }
             },
             "type": "object"
@@ -209,7 +250,7 @@
             "type": "string"
           },
           "xsl:with-param": {
-            "$ref":  "#/definitions/xsl%3Awith-param"
+            "$ref": "#/definitions/xsl%3Awith-param"
           }
         },
         "type": "object"
@@ -226,6 +267,32 @@
         },
         "@any_custom_attribute_like_class_margin_padding_etc": {
           "type": "string"
+        },
+        "xsl:attribute": {
+          "$ref": "#/definitions/xsl%3Aattribute"
+        },
+        "xsl:choose": {
+          "$ref": "#/definitions/xsl%3Achoose"
+        },
+        "xsl:call-template": {
+          "$ref": "#/definitions/xsl%3Acall-template"
+        },
+        "xsl:element": {
+          "$ref": "#/definitions/xsl%3Aelement"
+        }
+      },
+      "type": [ "object", "string" ]
+    },
+    "xsl:for-each": {
+      "additionalProperties": {
+        "$ref": "#/definitions/shorthand_element_name"
+      },
+      "properties": {
+        "@select": {
+          "type": "string"
+        },
+        "xsl:value-of": {
+          "$ref": "#/definitions/xsl%3Avalue-of"
         },
         "xsl:attribute": {
           "$ref": "#/definitions/xsl%3Aattribute"

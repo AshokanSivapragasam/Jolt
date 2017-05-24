@@ -1,3 +1,27 @@
 {
-  "xsl:stylesheet": {"xsl:template": [{"html":  {"xsl:call-template": [{"@name": "", "xsl:with-param": [{"@name": "", "@select": "", }]}]}}]}
+  "xsl:stylesheet": {
+    "@version": "1.0",
+    "@xmlns:xsl": "http://www.w3.org/1999/XSL/Transform",
+    "@exclude-result-prefixes": "msxsl mslib fo",
+    "@xmlns:fo": "http://www.w3.org/1999/XSL/Format",
+    "@xmlns:mslib": "http://microsoft.com/mip/libraries",
+    "@xmlns:msxsl": "urn:schemas-microsoft-com:xslt",
+    "xsl:output": {
+      "@indent": "yes",
+      "@method": "html"
+    },
+    "xsl:template": [
+      {
+        "@match": "/",
+        "html": {
+          "head": { "title": "this is a sample stylesheet!" },
+          "body": {
+            "@ng-App": "./controller",
+            "__text": "This is the html body"
+          }
+        }
+      }
+    ]
+  }
+
 }
