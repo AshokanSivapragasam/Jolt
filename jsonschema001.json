@@ -55,23 +55,43 @@
         },
         "xsl:template": {
           "items": {
-            "$ref":  "#/definitions/_template_"
+            "$ref": "#/definitions/_template_"
           },
           "description": "Defines a reusable template for generating the desired output for nodes of a particular type and context.",
           "type": "array"
         }
       },
-      "type": "object"
+      "type": "object",
+      "description": "RootNode"
     }
   },
-  "description": "RootNode",
   "type": "object",
   "definitions": {
     "xsl:apply-templates": {
-      "items": {
-        "properties": {
-          "@mode": { "type": "string" },
-          "select": { "type": "string" }
+      "properties": {
+        "@mode": { "type": "string" },
+        "@select": { "type": "string" },
+        "xsl:sort": {
+          "$ref": "#/definitions/xsl%3Asort"
+        },
+        "xsl:with-param": {
+          "$ref": "#/definitions/xsl%3Awith-param"
+        }
+      },
+      "type": "object"
+    },
+    "xsl:text": {
+      "properties": {
+        "@disable-output-escaping": {
+          "type": "string",
+          "enum": [ "yes", "no" ]
+        },
+        "@xml:space": {
+          "type": "string",
+          "enum": [ "default", "preserve" ]
+        },
+        "__text": {
+          "type": "string"
         }
       },
       "type": "object"
@@ -110,6 +130,9 @@
           },
           "xsl:element": {
             "$ref": "#/definitions/xsl%3Aelement"
+          },
+          "xsl:number": {
+            "$ref": "#/definitions/xsl%3Anumber"
           }
         },
         "type": "object"
@@ -122,8 +145,12 @@
           "@name": {
             "type": "string"
           },
-          "xsl:value-of": {
-            "$ref": "#/definitions/xsl%3Avalue-of"
+          "@namespace": {
+            "type": "string"
+          },
+          "@xml:space": {
+            "type": "string",
+            "enum": [ "default", "preserve" ]
           }
         },
         "type": "object"
@@ -187,6 +214,9 @@
           },
           "xsl:element": {
             "$ref": "#/definitions/xsl%3Aelement"
+          },
+          "xsl:number": {
+            "$ref": "#/definitions/xsl%3Anumber"
           }
         },
         "type": "object"
@@ -213,8 +243,9 @@
           "@select": {
             "type": "string"
           },
-          "xsl:value-of": {
-            "$ref": "#/definitions/xsl%3Avalue-of"
+          "@xml:space": {
+            "type": "string",
+            "enum": [ "default", "preserve" ]
           }
         },
         "type": "object"
@@ -260,13 +291,16 @@
         },
         "xsl:element": {
           "$ref": "#/definitions/xsl%3Aelement"
+        },
+        "xsl:number": {
+          "$ref": "#/definitions/xsl%3Anumber"
         }
       },
       "type": [ "object", "string" ]
     },
     "xsl:comment": {
       "properties": {
-        "@xsl:space": {
+        "@xml:space": {
           "type": "string",
           "enum": [ "default", "preserve" ]
         },
@@ -309,6 +343,9 @@
         "xsl:element": {
           "$ref": "#/definitions/xsl%3Aelement"
         },
+        "xsl:attribute": {
+          "$ref": "#/definitions/xsl%3Aattribute"
+        },
         "xsl:param": {
           "$ref": "#/definitions/xsl%3Aparam"
         },
@@ -340,6 +377,12 @@
             }
           },
           "type": "object"
+        },
+        "xsl:number": {
+          "$ref": "#/definitions/xsl%3Anumber"
+        },
+        "xsl:if": {
+          "$ref": "#/definitions/xsl%3Aif"
         }
       },
       "type": "object"
@@ -395,6 +438,217 @@
         }
       },
       "type": [ "object", "string" ]
+    },
+    "xsl:number": {
+      "items": {
+        "properties": {
+          "@count": {
+            "type": "number"
+          },
+          "@format": {
+            "type": "string"
+          },
+          "@from": {
+            "type": "string"
+          },
+          "@grouping-separator": {
+            "type": "string",
+            "minLength": 1
+          },
+          "@grouping-size": {
+            "type": "number"
+          },
+          "@lang": {
+            "type": "string",
+            "enum": [ "en", "en-in", "en-us" ]
+          },
+          "@letter-value": {
+            "type": "string",
+            "enum": [ "alphabetic", "traditional" ]
+          },
+          "@level": {
+            "type": "string",
+            "enum": [ "single", "multiple", "any" ]
+          },
+          "@value": {
+            "type": "string"
+          }
+        }
+      },
+      "type": "array"
+    },
+    "xsl:message": {
+      "items": {
+        "properties": {
+          "@terminate": {
+            "type": "string",
+            "enum": [ "yes", "no" ]
+          },
+          "@xml:space": {
+            "type": "string",
+            "enum": [ "default", "preserve" ]
+          },
+          "__text": {
+            "type": "string"
+          }
+        }
+      },
+      "type": "array"
+    },
+    "xsl:if": {
+      "items": {
+        "additionalProperties": {
+          "$ref": "#/definitions/shorthand_element_name"
+        },
+        "properties": {
+          "@test": {
+            "type": "string",
+            "minLength": 1
+          },
+          "@xml:space": {
+            "type": "string",
+            "enum": [ "default", "preserve" ]
+          },
+          "__text": {
+            "type": "string"
+          },
+          "xsl:if": {
+            "$ref": "#/definitions/xsl%3Aif"
+          },
+          "xsl:comment": {
+            "$ref": "#/definitions/xsl%3Acomment"
+          },
+          "xsl:choose": {
+            "$ref": "#/definitions/xsl%3Achoose"
+          },
+          "xsl:apply-templates": {
+            "$ref": "#/definitions/xsl%3Aapply-templates"
+          },
+          "xsl:element": {
+            "$ref": "#/definitions/xsl%3Aelement"
+          },
+          "xsl:attribute": {
+            "$ref": "#/definitions/xsl%3Aattribute"
+          },
+          "xsl:param": {
+            "$ref": "#/definitions/xsl%3Aparam"
+          },
+          "xsl:call-template": {
+            "$ref": "#/definitions/xsl%3Acall-template"
+          },
+          "xsl:for-each": {
+            "$ref": "#/definitions/xsl%3Afor-each"
+          },
+          "xsl:copy": {
+            "$ref": "#/definitions/_template_"
+          },
+          "xsl:fallback": {
+            "additionalProperties": {
+              "$ref": "#/definitions/_redundant_template_props_"
+            },
+            "properties": {
+              "@xml:space": {
+                "type": "string",
+                "enum": [ "default", "preserve" ]
+              }
+            },
+            "type": "object"
+          },
+          "xsl:copy-of": {
+            "properties": {
+              "@select": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "xsl:number": {
+            "$ref": "#/definitions/xsl%3Anumber"
+          }
+        }
+      },
+      "type": "array"
+    },
+    "xsl:processing-instruction": {
+      "items": {
+        "properties": {
+          "@name": {
+            "type": "string"
+          },
+          "@xml:space": {
+            "type": "string",
+            "enum": [ "default", "preserve" ]
+          },
+          "xsl:comment": {
+            "$ref": "#/definitions/xsl%3Acomment"
+          },
+          "xsl:choose": {
+            "$ref": "#/definitions/xsl%3Achoose"
+          },
+          "xsl:apply-templates": {
+            "$ref": "#/definitions/xsl%3Aapply-templates"
+          },
+          "xsl:call-template": {
+            "$ref": "#/definitions/xsl%3Acall-template"
+          },
+          "xsl:for-each": {
+            "$ref": "#/definitions/xsl%3Afor-each"
+          },
+          "xsl:copy": {
+            "$ref": "#/definitions/_template_"
+          },
+          "xsl:fallback": {
+            "additionalProperties": {
+              "$ref": "#/definitions/_redundant_template_props_"
+            },
+            "properties": {
+              "@xml:space": {
+                "type": "string",
+                "enum": [ "default", "preserve" ]
+              }
+            },
+            "type": "object"
+          },
+          "xsl:copy-of": {
+            "properties": {
+              "@select": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "xsl:number": {
+            "$ref": "#/definitions/xsl%3Anumber"
+          },
+          "xsl:if": {
+            "$ref": "#/definitions/xsl%3Aif"
+          }
+        }
+      },
+      "type": "array"
+    },
+    "xsl:sort": {
+      "items": {
+        "properties": {
+          "@case-order": {
+            "type": "string",
+            "enum": [ "lower-first", "upper-first" ]
+          },
+          "@data-type": {
+            "type": "string",
+            "enum": [ "text", "number" ]
+          },
+          "@order": {
+            "type": "string",
+            "enum": [ "ascending", "descending" ]
+          },
+          "@select": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "type": "array"
     }
   }
 }
