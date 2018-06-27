@@ -29,11 +29,23 @@
         },
         "xsl:output": {
           "properties": {
+            "@version": {
+              "type": "string",
+              "enum": [ "1.0" ]
+            },
             "@method": {
               "type": "string",
               "enum": [ "xml", "html", "text" ]
             },
             "@indent": {
+              "type": "string",
+              "enum": [ "yes", "no" ]
+            },
+            "@encoding": {
+              "type": "string",
+              "enum": [ "utf-7", "utf-18", "utf-16", "ansi", "iso-8859-1" ]
+            },
+            "@omit-xml-declaration": {
               "type": "string",
               "enum": [ "yes", "no" ]
             }
@@ -43,46 +55,7 @@
         },
         "xsl:template": {
           "items": {
-            "additionalProperties": {
-              "$ref": "#/definitions/shorthand_element_name"
-            },
-            "properties": {
-              "@match": {
-                "description": "A pattern that identifies the source node or nodes to which the rule applies. The match attribute is required unless the <xsl:template> element has a name attribute. The content of the <xsl:template> element is the template that is instantiated when the template rule is applied.",
-                "type": "string"
-              },
-              "@name": {
-                "description": "The Qualified Name (QName) to be expanded. If it has a prefix, the prefix is expanded into a Uniform Resource Identifier (URI) reference using the namespace declarations in effect on the attribute in which the name occurs. The expanded-name, consisting of the local part of the name and the possibly null URI reference is used as the name of the template. The default namespace is not used for unprefixed names. If an <xsl:template> element has a name attribute, it can, but need not, also have a match attribute.",
-                "type": "string"
-              },
-              "@mode": {
-                "description": "The mode value. This value allows an element to be processed multiple times, each time producing a different result. If <xsl:template> does not have a match attribute, it must not have a mode attribute. If an <xsl:apply-templates> element has a mode attribute, it applies only to those template rules from <xsl:template> elements that have a mode attribute with the same value; if an <xsl:apply-templates> element does not have a mode attribute, it applies only to those template rules from <xsl:template> elements that do not have a mode attribute.",
-                "type": "string"
-              },
-              "@priority": {
-                "description": "The priority number for the template. All matching template rules that have lower priority than the matching template rule or rules with the highest priority are eliminated from consideration. The value of this must be a real number from 0-9, positive or negative, matching the production number with an optional leading minus sign (-). The default priority is computed as follows:",
-                "type": "integer"
-              },
-              "xsl:choose": {
-                "$ref": "#/definitions/xsl%3Achoose"
-              },
-              "xsl:apply-templates": {
-                "$ref": "#/definitions/xsl%3Aapply-templates"
-              },
-              "xsl:element": {
-                "$ref": "#/definitions/xsl%3Aelement"
-              },
-              "xsl:param": {
-                "$ref": "#/definitions/xsl%3Aparam"
-              },
-              "xsl:call-template": {
-                "$ref": "#/definitions/xsl%3Acall-template"
-              },
-              "xsl:for-each": {
-                "$ref": "#/definitions/xsl%3Afor-each"
-              }
-            },
-            "type": "object"
+            "$ref":  "#/definitions/_template_"
           },
           "description": "Defines a reusable template for generating the desired output for nodes of a particular type and context.",
           "type": "array"
@@ -119,6 +92,9 @@
         "properties": {
           "@name": {
             "type": "string"
+          },
+          "xsl:comment": {
+            "$ref": "#/definitions/xsl%3Acomment"
           },
           "xsl:value-of": {
             "$ref": "#/definitions/xsl%3Avalue-of"
@@ -175,15 +151,17 @@
           },
           "xsl:otherwise": {
             "items": {
+              "additionalProperties": {
+                "$ref": "#/definitions/shorthand_element_name"
+              },
               "properties": {
-                "@test": { "type": "string" },
                 "xsl:element": {
                   "$ref": "#/definitions/xsl%3Aelement"
                 }
               },
               "type": "object"
             },
-            "type": "object"
+            "type": "array"
           }
         },
         "type": "object"
@@ -262,6 +240,9 @@
         "$ref": "#/definitions/shorthand_element_name"
       },
       "properties": {
+        "xsl:comment": {
+          "$ref": "#/definitions/xsl%3Acomment"
+        },
         "xsl:value-of": {
           "$ref": "#/definitions/xsl%3Avalue-of"
         },
@@ -282,6 +263,112 @@
         }
       },
       "type": [ "object", "string" ]
+    },
+    "xsl:comment": {
+      "properties": {
+        "@xsl:space": {
+          "type": "string",
+          "enum": [ "default", "preserve" ]
+        },
+        "__text": {
+          "type": "string"
+        }
+      },
+      "type": [ "object", "string" ]
+    },
+    "_template_": {
+      "additionalProperties": {
+        "$ref": "#/definitions/shorthand_element_name"
+      },
+      "properties": {
+        "@match": {
+          "description": "A pattern that identifies the source node or nodes to which the rule applies. The match attribute is required unless the <xsl:template> element has a name attribute. The content of the <xsl:template> element is the template that is instantiated when the template rule is applied.",
+          "type": "string"
+        },
+        "@name": {
+          "description": "The Qualified Name (QName) to be expanded. If it has a prefix, the prefix is expanded into a Uniform Resource Identifier (URI) reference using the namespace declarations in effect on the attribute in which the name occurs. The expanded-name, consisting of the local part of the name and the possibly null URI reference is used as the name of the template. The default namespace is not used for unprefixed names. If an <xsl:template> element has a name attribute, it can, but need not, also have a match attribute.",
+          "type": "string"
+        },
+        "@mode": {
+          "description": "The mode value. This value allows an element to be processed multiple times, each time producing a different result. If <xsl:template> does not have a match attribute, it must not have a mode attribute. If an <xsl:apply-templates> element has a mode attribute, it applies only to those template rules from <xsl:template> elements that have a mode attribute with the same value; if an <xsl:apply-templates> element does not have a mode attribute, it applies only to those template rules from <xsl:template> elements that do not have a mode attribute.",
+          "type": "string"
+        },
+        "@priority": {
+          "description": "The priority number for the template. All matching template rules that have lower priority than the matching template rule or rules with the highest priority are eliminated from consideration. The value of this must be a real number from 0-9, positive or negative, matching the production number with an optional leading minus sign (-). The default priority is computed as follows:",
+          "type": "integer"
+        },
+        "xsl:comment": {
+          "$ref": "#/definitions/xsl%3Acomment"
+        },
+        "xsl:choose": {
+          "$ref": "#/definitions/xsl%3Achoose"
+        },
+        "xsl:apply-templates": {
+          "$ref": "#/definitions/xsl%3Aapply-templates"
+        },
+        "xsl:element": {
+          "$ref": "#/definitions/xsl%3Aelement"
+        },
+        "xsl:param": {
+          "$ref": "#/definitions/xsl%3Aparam"
+        },
+        "xsl:call-template": {
+          "$ref": "#/definitions/xsl%3Acall-template"
+        },
+        "xsl:for-each": {
+          "$ref": "#/definitions/xsl%3Afor-each"
+        },
+        "xsl:copy": {
+          "$ref": "#/definitions/_template_"
+        },
+        "xsl:fallback": {
+          "additionalProperties": {
+            "$ref": "#/definitions/_redundant_template_props_"
+          },
+          "properties": {
+            "@xml:space": {
+              "type": "string",
+              "enum": [ "default", "preserve" ]
+            }
+          },
+          "type": "object"
+        },
+        "xsl:copy-of": {
+          "properties": {
+            "@select": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "_redundant_template_props_": {
+      "properties": {
+        "xsl:comment": {
+          "$ref": "#/definitions/xsl%3Acomment"
+        },
+        "xsl:choose": {
+          "$ref": "#/definitions/xsl%3Achoose"
+        },
+        "xsl:apply-templates": {
+          "$ref": "#/definitions/xsl%3Aapply-templates"
+        },
+        "xsl:element": {
+          "$ref": "#/definitions/xsl%3Aelement"
+        },
+        "xsl:param": {
+          "$ref": "#/definitions/xsl%3Aparam"
+        },
+        "xsl:call-template": {
+          "$ref": "#/definitions/xsl%3Acall-template"
+        },
+        "xsl:for-each": {
+          "$ref": "#/definitions/xsl%3Afor-each"
+        }
+      },
+      "type": [ "object" ]
     },
     "xsl:for-each": {
       "additionalProperties": {

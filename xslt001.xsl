@@ -3,8 +3,11 @@
     xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl"
 >
   <xsl:output indent="yes" method="html"></xsl:output>
+
   <xsl:template match="/">
-    <html ng-App="./controller">
+    <html>
+      <head></head>
+      <body></body>
     </html>
   </xsl:template>
 </xsl:stylesheet>

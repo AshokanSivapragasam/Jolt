@@ -12,10 +12,20 @@
     },
     "xsl:template": [
       {
+        "xsl:fallback": {"@xml:space": "default"},
+        "xsl:comment": {
+          "@xsl:space": "default",
+          "__text": "this is the comment"
+        },
         "@match": "/",
+        "xsl:choose": [ { "xsl:otherwise": [ { "red": {} } ] } ],
         "html": {
           "head": { "title": "this is a sample stylesheet!" },
           "body": {
+            "xsl:comment": {
+              "@xsl:space": "preserve",
+              "__text": "red"
+            },
             "@ng-App": "./controller",
             "__text": "This is the html body"
           }
